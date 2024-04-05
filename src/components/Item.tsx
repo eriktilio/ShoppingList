@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {IItem} from './AddItem';
 const Item: React.FC<IItem> = ({item, quantity}) => {
   return (
     <View style={styles.item}>
       <Text style={styles.itemName}>{item}</Text>
-      <Text style={styles.quantity}>x{quantity}</Text>
+      <Text style={styles.quantity}>*{quantity}</Text>
     </View>
   );
 };
@@ -19,15 +19,16 @@ const styles = StyleSheet.create({
     borderBottomColor: 'rgba(0, 0, 0, 0.2)',
   },
   itemName: {
+    color: '#000',
     fontWeight: '500',
   },
   quantity: {
-    padding: 6,
+    padding: 10,
     borderWidth: 1,
     borderColor: 'rgba(0, 0, 0, 0.2)',
     borderRadius: 10,
     overflow: 'hidden',
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    backgroundColor: '#eb8634',
   },
 });
 export default Item;

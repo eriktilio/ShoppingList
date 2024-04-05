@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {
-  View,
+  Alert,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  Alert,
+  View,
 } from 'react-native';
 export interface IItem {
   item: string;
@@ -20,7 +20,7 @@ const AddItem: React.FC<Props> = ({shoppingList, setShoppingList}) => {
   const [quantity, setQuantity] = useState('');
   const addItem = () => {
     if (!item) {
-      Alert.alert('No Item!', 'You need to enter an item');
+      Alert.alert('Sem items!', 'Adicione pelo menos um item');
     } else {
       setShoppingList([
         ...shoppingList,
@@ -35,17 +35,19 @@ const AddItem: React.FC<Props> = ({shoppingList, setShoppingList}) => {
   };
   return (
     <View>
-      <Text style={styles.heading}>Add Shopping Item</Text>
       <View style={styles.form}>
         <TextInput
           style={styles.input}
-          placeholder="Enter item"
+          placeholder="Digite um item"
+          placeholderTextColor={'grey'}
           value={item}
+          maxLength={25}
           onChangeText={text => setItem(text)}
         />
         <TextInput
           style={styles.input}
-          placeholder="Enter quantity"
+          placeholder="Digite a quantidade do item"
+          placeholderTextColor={'grey'}
           keyboardType="numeric"
           value={quantity}
           onChangeText={q => {
@@ -53,23 +55,20 @@ const AddItem: React.FC<Props> = ({shoppingList, setShoppingList}) => {
           }}
         />
         <TouchableOpacity style={styles.addItemButton} onPress={addItem}>
-          <Text style={styles.buttonText}>Add Item</Text>
+          <Text style={styles.buttonText}>Adicionar item</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  heading: {
-    fontSize: 20,
-    fontWeight: '700',
-  },
   form: {
     marginTop: 30,
   },
   input: {
     padding: 15,
-    borderColor: 'rgba(0, 0, 0, 0.2)',
+    color: '#000',
+    borderColor: '#eb8634',
     borderWidth: 1,
     borderRadius: 5,
     marginBottom: 20,
@@ -80,6 +79,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
   },
-  buttonText: {color: '#fff', fontWeight: '500'},
+  buttonText: {
+    color: '#fff',
+    textTransform: 'uppercase',
+    fontWeight: '500',
+  },
 });
 export default AddItem;

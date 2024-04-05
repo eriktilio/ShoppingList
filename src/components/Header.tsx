@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 interface Props {
   title: string;
 }
@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
   header: {
     paddingVertical: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#cfcfcf',
+    backgroundColor: '#eb8634',
+    borderBottomColor: '#eb8634',
     alignItems: 'center',
   },
   headerText: {
