@@ -1,48 +1,43 @@
 import React, {useState} from 'react';
 import {FlatList, SafeAreaView, StyleSheet, View} from 'react-native';
 import AddItem, {IItem} from './src/components/AddItem';
-import Header from './src/components/Header';
 import Item from './src/components/Item';
-
-// const mockShoppingList = [
-//   {item: 'Maçãs', quantity: '5'},
-//   {item: 'Bananas', quantity: '3'},
-//   {item: 'Leite', quantity: '2'},
-//   {item: 'Pão', quantity: '1'},
-//   {item: 'Ovos', quantity: '12'},
-//   {item: 'Queijo', quantity: '1'},
-//   {item: 'Iogurte', quantity: '4'},
-//   {item: 'Cereal', quantity: '1'},
-//   {item: 'Café', quantity: '1'},
-//   {item: 'Arroz', quantity: '2'},
-//   {item: 'Feijão', quantity: '2'},
-//   {item: 'Carne', quantity: '3'},
-//   {item: 'Peixe', quantity: '2'},
-//   {item: 'Frango', quantity: '2'},
-//   {item: 'Batatas', quantity: '3'},
-//   {item: 'Cenouras', quantity: '6'},
-//   {item: 'Tomates', quantity: '4'},
-//   {item: 'Alface', quantity: '1'},
-//   {item: 'Cebolas', quantity: '3'},
-//   {item: 'Pimentões', quantity: '2'},
-// ];
+import MySVG from './src/components/MySVG';
+import TotalPanel from './src/components/TotalPanel';
+import calculateTotal from './src/utils/calculateTotal';
 
 const App = () => {
   const [shoppingList, setShoppingList] = useState<IItem[]>([]);
 
+  // Função para excluir um item da lista de compras
+  const deleteItem = (itemToRemove: IItem) => {
+    setShoppingList(prevList => prevList.filter(item => item !== itemToRemove));
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Lista de Compras" />
       <View style={styles.contentWrapper}>
         <View style={styles.flatListContainer}>
-          <FlatList
-            data={shoppingList}
-            keyExtractor={(item, index) => `${item.item}-${index}`}
-            renderItem={({item}) => (
-              <Item item={item.item} quantity={item.quantity} />
-            )}
-          />
+          {shoppingList.length === 0 ? (
+            <MySVG />
+          ) : (
+            <View style={styles.flatListContainer}>
+              <FlatList
+                data={shoppingList}
+                keyExtractor={(item, index) => `${item.item}-${index}`}
+                renderItem={({item}) => (
+                  <Item
+                    item={item.item}
+                    quantity={item.quantity}
+                    price={item.price}
+                    onDelete={() => deleteItem(item)}
+                  />
+                )}
+              />
+            </View>
+          )}
         </View>
+        <TotalPanel title={calculateTotal(shoppingList)} />
         <AddItem
           setShoppingList={setShoppingList}
           shoppingList={shoppingList}
