@@ -50,7 +50,7 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e8e7e3',
+    backgroundColor: '#fff',
   },
   contentWrapper: {
     flex: 1,
